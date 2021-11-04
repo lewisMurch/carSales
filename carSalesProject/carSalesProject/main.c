@@ -532,12 +532,16 @@ int loginFunc() {
 		readUsernameFromFile(stringI);
 		readPasswordFromFile(stringI);
 
+		//DEBUG INCASE BROKEN:
+			//p("check ");
+			//printf("%d", i);
+			//nLine;
+
 		if (strcmp(lowerCaseFunc(enteredUsername), lowerCaseFunc(usernameFromFile)) == 0 && strcmp(enteredPassword, passwordFromFile) == 0) { //compares the users inputs (for username and pasword) to acceptible pairs
 			clear;
 			printf("Logging you in now...\n\n");
 			mainMenu();
 		}
-	
 	}
 
 	//run the three lines of code below if the password isn't found within the list of accaptable values. It will only run if the above "if" statment isn't ran.
