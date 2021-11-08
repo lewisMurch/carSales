@@ -1,93 +1,113 @@
 ﻿  main.c
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(103,28): warning C4013: 'modelClassPriceCalculator' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(111,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(148,8): warning C4013: 'goBack' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(160,11): warning C4013: 'mainMenu' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(187,10): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'char *'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(187,10): message : consider using '%hhd' in the format string
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(194,17): warning C4013: 'multiCarChooser' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(195,15): warning C4013: 'priceFunction' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(282,15): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(283,16): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(306,21): warning C4013: 'paymentTypeFunction' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(314,10): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'short *'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(314,10): message : consider using '%hd' in the format string
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(318,77): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(338,54): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(339,99): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(317,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(351,10): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'short *'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(351,10): message : consider using '%hd' in the format string
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(363,90): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(375,10): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'char *'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(375,10): message : consider using '%hhd' in the format string
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(396,19): warning C4013: 'confirmPurchase' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(423,12): warning C4013: 'loginMenu' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(433,3): warning C4550: expression evaluates to a function which is missing an argument list
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(496,12): warning C4013: 'loginFunc' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(503,13): warning C4013: 'signupFunc' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(532,23): warning C4013: 'readUsernameFromFile' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(533,23): warning C4013: 'readPasswordFromFile' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(540,27): warning C4013: 'lowerCaseFunc' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(540,44): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(540,27): warning C4024: 'strcmp': different types for formal and actual parameter 1
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(540,77): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(540,59): warning C4024: 'strcmp': different types for formal and actual parameter 2
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(554,20): warning C4013: 'accountCountReader' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(561,20): warning C4013: 'fileLoaderUsername' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(567,20): warning C4013: 'fileLoaderPassword' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(571,20): warning C4013: 'accountCountWriter' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(582,14): warning C4047: 'return': 'int' differs in levels of indirection from 'char *'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(575,1): warning C4047: 'initializing': 'char *' differs in levels of indirection from 'int'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(592,33): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(592,23): warning C4024: 'strcat': different types for formal and actual parameter 2
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(597,12): warning C4013: 'ifNullFile' undefined; assuming extern returning int
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(599,13): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'int'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(599,29): warning C4474: 'fprintf' : too many arguments passed for format string
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(599,29): message : placeholders and their parameters expect 1 variadic arguments, but 2 were provided
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(600,25): warning C4474: 'fprintf' : too many arguments passed for format string
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(600,25): message : placeholders and their parameters expect 1 variadic arguments, but 2 were provided
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(612,33): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(612,23): warning C4024: 'strcat': different types for formal and actual parameter 2
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(619,13): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'int'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(619,29): warning C4474: 'fprintf' : too many arguments passed for format string
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(619,29): message : placeholders and their parameters expect 1 variadic arguments, but 2 were provided
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(620,25): warning C4474: 'fprintf' : too many arguments passed for format string
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(620,25): message : placeholders and their parameters expect 1 variadic arguments, but 2 were provided
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(626,22): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(637,32): warning C4047: 'function': 'FILE *' differs in levels of indirection from 'int'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(637,24): warning C4024: 'getc': different types for formal and actual parameter 1
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(637,78): warning C4047: 'function': 'FILE *' differs in levels of indirection from 'int'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(637,70): warning C4024: 'getc': different types for formal and actual parameter 1
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(641,17): warning C4047: 'function': 'FILE *' differs in levels of indirection from 'int'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(641,9): warning C4024: 'fclose': different types for formal and actual parameter 1
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(650,41): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(650,23): warning C4024: 'strcat': different types for formal and actual parameter 2
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(668,41): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(668,23): warning C4024: 'strcat': different types for formal and actual parameter 2
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(700,13): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'int'
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(178): warning C4716: 'getStock': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(106): warning C4716: 'modelClassAndPriceMultiplierFunc': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(168): warning C4716: 'goBack': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(196): warning C4716: 'modelClassPriceCalculator': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(237): warning C4716: 'pistonChoose': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(259): warning C4716: 'pistonSwitch': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(307): warning C4716: 'priceFunction': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(366): warning C4716: 'financeMethodFunc': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(344): warning C4716: 'rentMethodFunc': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(436): warning C4716: 'confirmPurchase': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(412): warning C4716: 'paymentTypeFunction': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(457): warning C4716: 'multiCarChooser': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(483): warning C4716: 'mainMenu': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(513): warning C4716: 'loginMenu': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(551): warning C4717: 'loginFunc': recursive on all control paths, function will cause runtime stack overflow
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(551): warning C4716: 'loginFunc': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(572): warning C4716: 'signupFunc': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(623): warning C4716: 'fileLoaderPassword': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(603): warning C4716: 'fileLoaderUsername': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(631): warning C4715: 'ifNullFile': not all control paths return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(661): warning C4716: 'readUsernameFromFile': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(680): warning C4716: 'readPasswordFromFile': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(702): warning C4716: 'accountCountWriter': must return a value
-C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(694): warning C4716: 'accountCountReader': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(114,28): warning C4013: 'modelClassPriceCalculator' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(122,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(159,8): warning C4013: 'goBack' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(171,11): warning C4013: 'mainMenu' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(198,10): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'char *'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(198,10): message : consider using '%hhd' in the format string
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(202,42): warning C4047: '==': 'int' differs in levels of indirection from 'char [2]'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(211,17): warning C4013: 'multiCarChooser' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(212,15): warning C4013: 'priceFunction' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(299,15): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(300,16): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(323,21): warning C4013: 'paymentTypeFunction' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(331,10): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'short *'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(331,10): message : consider using '%hd' in the format string
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(335,77): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(355,54): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(356,99): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(334,1): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(368,10): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'short *'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(368,10): message : consider using '%hd' in the format string
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(380,90): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(392,10): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'char *'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(392,10): message : consider using '%hhd' in the format string
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(413,19): warning C4013: 'confirmPurchase' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(445,20): warning C4013: 'saveInvoiceToFile' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(446,12): warning C4013: 'loginMenu' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(456,3): warning C4550: expression evaluates to a function which is missing an argument list
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(511,14): warning C4013: 'readInvoice' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(514,16): warning C4047: '==': 'char [1]' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(514,27): warning C4047: '==': 'char [1]' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(541,12): warning C4013: 'loginFunc' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(549,13): warning C4013: 'signupFunc' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(557,13): warning C4013: 'adminLogin' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(587,20): warning C4013: 'accountCountReader' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(597,22): warning C4013: 'readCustomerDetails' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(599,27): warning C4013: 'lowerCaseFunc' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(599,44): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(599,27): warning C4024: 'strcmp': different types for formal and actual parameter 1
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(599,77): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(599,59): warning C4024: 'strcmp': different types for formal and actual parameter 2
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(602,58): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(602,41): warning C4024: 'strcpy': different types for formal and actual parameter 2
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(627,21): warning C4013: 'makeCustomerDetails' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(632,20): warning C4013: 'accountCountWriter' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(643,14): warning C4047: 'return': 'int' differs in levels of indirection from 'char *'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(636,1): warning C4047: 'initializing': 'char *' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(653,33): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(653,23): warning C4024: 'strcat': different types for formal and actual parameter 2
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(658,12): warning C4013: 'ifNullFile' undefined; assuming extern returning int
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(660,13): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(660,29): warning C4474: 'fprintf' : too many arguments passed for format string
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(660,29): message : placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(661,25): warning C4474: 'fprintf' : too many arguments passed for format string
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(661,25): message : placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(673,33): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(673,23): warning C4024: 'strcat': different types for formal and actual parameter 2
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(680,13): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(680,29): warning C4474: 'fprintf' : too many arguments passed for format string
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(680,29): message : placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(681,25): warning C4474: 'fprintf' : too many arguments passed for format string
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(681,25): message : placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(687,22): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(701,32): warning C4047: 'function': 'FILE *' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(701,24): warning C4024: 'getc': different types for formal and actual parameter 1
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(701,78): warning C4047: 'function': 'FILE *' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(701,70): warning C4024: 'getc': different types for formal and actual parameter 1
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(705,17): warning C4047: 'function': 'FILE *' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(705,9): warning C4024: 'fclose': different types for formal and actual parameter 1
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(714,41): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(714,23): warning C4024: 'strcat': different types for formal and actual parameter 2
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(732,41): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(732,23): warning C4024: 'strcat': different types for formal and actual parameter 2
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(764,13): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(772,31): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(772,23): warning C4024: 'strcat': different types for formal and actual parameter 2
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(790,31): warning C4047: 'function': 'const char *' differs in levels of indirection from 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(790,23): warning C4024: 'strcat': different types for formal and actual parameter 2
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(785,7): warning C4101: 'str': unreferenced local variable
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(825,13): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(826,13): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(827,13): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'int'
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(117): warning C4716: 'modelClassAndPriceMultiplierFunc': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(179): warning C4716: 'goBack': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(213): warning C4716: 'modelClassPriceCalculator': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(189): warning C4716: 'getStock': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(254): warning C4716: 'pistonChoose': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(324): warning C4716: 'priceFunction': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(383): warning C4716: 'financeMethodFunc': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(429): warning C4716: 'paymentTypeFunction': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(361): warning C4716: 'rentMethodFunc': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(276): warning C4716: 'pistonSwitch': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(459): warning C4716: 'confirmPurchase': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(479): warning C4716: 'multiCarChooser': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(566): warning C4716: 'loginMenu': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(526): warning C4716: 'mainMenu': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(583): warning C4716: 'adminLogin': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(613): warning C4717: 'loginFunc': recursive on all control paths, function will cause runtime stack overflow
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(613): warning C4716: 'loginFunc': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(633): warning C4716: 'signupFunc': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(664): warning C4716: 'fileLoaderUsername': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(695): warning C4716: 'ifNullFile': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(684): warning C4716: 'fileLoaderPassword': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(725): warning C4716: 'readUsernameFromFile': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(744): warning C4716: 'readPasswordFromFile': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(758): warning C4716: 'accountCountReader': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(766): warning C4716: 'accountCountWriter': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(800): warning C4716: 'readInvoice': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(813): warning C4716: 'makeFile': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(829): warning C4716: 'makeCustomerDetails': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(782): warning C4716: 'saveInvoiceToFile': must return a value
+C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\carSalesProject\main.c(891): warning C4715: 'readCustomerDetails': not all control paths return a value
   carSalesProject.vcxproj -> C:\Users\lewis\Desktop\ARU\Course - AI\github_upload\carSales\carSalesProject\Debug\carSalesProject.exe
