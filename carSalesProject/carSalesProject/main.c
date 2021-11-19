@@ -4,901 +4,283 @@
 #include <windows.h>
 #include <stdlib.h>
 #include <string.h>
+#include<sys/stat.h> //check if file exists
 #pragma warning(disable:4996) //_CRT_SECURE_NO_WARNINGS
 
 //defined functions to save time
 #define clear				system("cls"); //clears the system when called
-#define pass				printf(""); //helps me debug functions
+#define pass				printf(""); //helps me debug functions more quickly
 #define nLine				printf("\n"); //creates a new line when called
 #define bigGap				printf("\n \n \n \n \n"); //creates a big gap when called - good for debug
-#define longLine			printf("--------------------------\n"); //creates a standardised line when called
+#define longLine			printf("----------------------------------\n"); //creates a standardised line when called
 #define p(a)				printf(a); //forshortnes print when called
-#define elementCount(list)	sizeof(list) / sizeof(list[0]); //finds the length of a list when called
-#define intInput(a, b)		scanf_s(a, &b); //forshortens numeric input when called
-#define input(a, b)			scanf_s(a, b); //forshortens normal input when called
-#define ps(a, b)			printf(a, b) //allows me to print a string
-
-//temp user login details
-//char* acceptedLogin[][2][128] = { {"", "" } }; //Creates an maricies with un-defined rows, 2 columns (element 0 for username, element 1 for pass), and each using 128 space to store each sring
-
-char enteredUsername[128];
-char enteredPassword[128];
-char enteredAge[4];
+#define POUND_SIGN          156 //ASCII for the pound sign
+#define PERCENT_SIGN        37 //ASCII for the pound sign
+#define accurateInput 	    while ((getchar()) != '\n'); option = getchar();//Makes sure it accurately reads the users input, instead of reading all the characters after it should have stopped
 
 
-char usernameFromFile[128];
-char passwordFromFile[128];
+//Global Variables 
+int user_age;
+const char* car_model_list[10] = {"Lamborghini","Ferrari","Bugatti", "Mercedes", "BMW", "Tesla", "Range Rover", "Saab", "Ford", "Kia"};
+float car_price_list[10] = {360000.00, 290000.00, 3800000.00, 65750.00, 40000.00, 40000.00, 80000.00, 25000.00, 12000.00, 9000.00};
+const int* car_stock_list[10] = {0};
 
-char adminUser[11] = "lewisMurch";
-char adminPass[12] = "password123";
-_Bool previousLogin = 0;
-
-int userCarBoughtAmountBought[][11][1] = { {0}, {0}, {0} };
-
-int accountCount;
-char accountCountString[4];
-
-int currentUserAccountNumber;
-char currentUsername[128];
-
-//declare variables
-float finalPrice = 1000;
-float priceMultiplier = 1;
-float lowestPreviewPrice;
-char methodOfPurchase;
-
-short monthsToRent;
-float monthlyPrice;
-
-short yearsToFinance;
-float yearlyCost;
-
-float RENT_INTEREST = 0.98f; //The longer you rent for, the less per month
-float FINANCE_YEARLY_INTEREST = 1.04f;
-
-char modelSelector;
-char carClass;
-int carNameElementNumber;
-int carAmountRequired;
-
-int pistonCount[] = { 0, 2, 4, 6, 8, 10, 12 }; //0 for electric motors instead of an engine
-int accesablePistonAmount[] = { 0 };
-int pistonChoice;
-
-int engineLiters;
-int topSpeed;
-
-int continueYesOrNo;
-int stockValue;
-
-const char* CAR_MODEL_LIST[] = { "Lamborghini","Ferrari","Bugatti", "Mercedes", "BMW", "Tesla", "Range Rover", "Saab", "Ford", "Kia", "VW" };
-int stock_array[11] = { 1, 2, 1, 3, 4, 2, 3, 5, 8, 7, 9 };
-
-const char* A[] = { "Lamborghini", "Ferrari", "Bugatti" };
-const char* B[] = { "Mercedes","BMW", "Telsa" };
-const char* C[] = { "Range Rover","Saab" };
-const char* D[] = { "Ford","Kia","VW" };
-
-//Assigns a class and price multiplier depending on the car selected
-int modelClassAndPriceMultiplierFunc() {
-	switch (modelSelector) {
-	case 1:
-	case 2:
-	case 3:
-		carClass = 'A'; //sets the car class to A for later use
-		priceMultiplier = 300;
-		break;
-
-	case 4:
-	case 5:
-	case 6:
-		carClass = 'B'; //sets the car class to B for later use
-		priceMultiplier = 35;
-		break;
-
-	case 7:
-	case 8:
-		carClass = 'C'; //sets the car class to C for later use
-		priceMultiplier = 5;
-		break;
-
-	case 9:
-	case 10:
-	case 11:
-		carClass = 'D'; //sets the car class to D for later use
-		priceMultiplier = 1.8f;
-		break;
-
-	default:
-		printf("Error with model selection, please try again\n");
-		modelClassPriceCalculator();
-		break;
-	}
+void goodByeMessage() {
+	clear; p("Thank you for your visit, enjoy the rest of your day\n\n");
 }
 
-//Shows the user the stats for all available cars
-void viewStats() {
-	size_t n = elementCount(CAR_MODEL_LIST);
-	for (int i = 0; i < n; i++) {
-		switch (i)
-		{
-		case 0:
-		case 1:
-		case 2:
-			lowestPreviewPrice = 240000;
-			break;
-
-		case 3:
-			nLine;
-		case 4:
-		case 5:
-			lowestPreviewPrice = 35000;
-			break;
-
-		case 6:
-			nLine;
-		case 7:
-			lowestPreviewPrice = 5000;
-			break;
-
-		case 8:
-			nLine;
-		case 9:
-		case 10:
-			lowestPreviewPrice = 900;
-			break;
-
-		default:
-			break;
-		}
-
-		printf("%d: %s - starting at %.2f - %d in stock\n", i + 1, CAR_MODEL_LIST[i], lowestPreviewPrice, stock_array[i]);
-
+int saveStockToFile() {
+	char str[2];
+	FILE* f = fopen("carStockList.txt", "w+"); ifNullFile(f); //Opens the list of car models, then checks if it has opened properly
+	for (int i = 0; i < 10; i++) {
+		sprintf(str, "%d", car_stock_list[i]);
+		fprintf(f, str); fprintf(f, "\n"); //writes each element one by one to the file
 	}
-	nLine;
-	goBack();
+	fclose(f); //Close the file
 }
 
-int goBack() {
-	p("press x to go back\n");
-	char userInput;
-	userInput = getchar();
-	switch (userInput)
+int saveInvoice(username, car_element, price) {
+	char age_string[128]; char discount_string[128] = "0"; char car_element_string[128]; float* price_pointer = price; //set a pointer to hold the data passed into it by the price calculator function
+	char file_name[45] = "invoice-"; strcat(file_name, username); strcat(file_name, ".txt"); //Creates the file name by adding ".txt" to the end of the username given
+	FILE* f = fopen(file_name, "a"); ifNullFile(f);
+
+	if (user_age >= 65) {
+		strcpy(discount_string, "25"); //sets the percentage removed as a string if the user is 65 or over so we can write it to the file
+	}
+	sprintf(age_string, "%d", user_age); sprintf(car_element_string, "%d",car_element);
+	fprintf(f, "%s\n%s\n%.2f\nEND\n", car_element_string, discount_string, *price_pointer);
+	fclose(f);
+}
+
+int saveSalesFigure(price) {
+	float car_price_list[10] = { 0 }; char tempString[64]; float tempFloat;
+	FILE* f = open("salesFigure.txt", "r"); ifNullFile(f);
+	for (int i = 0; i < 10; i++) {
+		fgets(tempString, 4, f);
+	}
+
+}
+
+int menuChoice(username) {
+	clear; p("Lewis's car dealership!\n"); longLine; char option;
+	p("A: View available cars\nB: Purchase a car\nC: View Sales\nX: Back\n"); accurateInput;
+	switch (option)
 	{
-	case 'x':
-	case 'X':
-		clear;
-		mainMenu();
-		break;
+	case 'a': case 'A':
+		clear; viewCarFunction(); break;
+	case 'b': case 'B':
+		clear; buyCarFunction(username);  break;
+	case 'c': case 'C':
+		clear; viewSaleFunction();  break;
+	case 'x': case 'X':
+		clear; authenticationPage(); break;
 	default:
-		clear;
-		viewStats();
-		break;
+		clear; p("Not a valid input\n"); longLine;
+		authenticationPage(); break;
 	}
-
 }
 
-//Set the element variable to find the car the user requested
-void carChosenFunc() {
-	carNameElementNumber = modelSelector - 1;
-}
-
-int getStock() {
-	carChosenFunc();
-	stockValue = stock_array[carNameElementNumber];
-}
-
-int modelClassPriceCalculator() {
-	printf("A:\n--\n1.Lamborghini   2.Ferrari   3.Bugatti\n\n");
-	printf("B:\n--\n4.Mercedes   5.BMW   6.Tesla\n\n");
-	printf("C:\n--\n7.Range Rover   8.Saab\n\n");
-	printf("D:\n--\n9.Ford   10.Kia   11.VW\n");
-	longLine;
-	printf("Please choose a car brand, or enter x to go back: ");
-	scanf_s("%d", &modelSelector);
-	nLine;
-	char userInput;
-	userInput = getchar();
-	if (userInput == 'x' || userInput == "X") {
-		clear;
-		mainMenu();
-	}
+int viewCarFunction() {
 	clear;
-	modelClassAndPriceMultiplierFunc(); //assigns a class and price multipler
-	carChosenFunc();
-	getStock();
-	clear;
-	multiCarChooser();
-	priceFunction();
+	for (int i = 0; i < 10; i++) {
+		printf("%s\n-----------\n%d in stock - %c%.2f each\n\n", car_model_list[i], car_stock_list[i], POUND_SIGN, car_price_list[i]);
+	}
+	
+	p("\nPress any key to go back: ");
+	while ((getchar()) != '\n'); //Makes sure it accurately reads the users input
+	if (getchar()) {
+		menuChoice();
+	}
 }
 
-//This function displays a menu and allows the user to select there desired amount of pistons
-int pistonChoose(int levelOfBasePower, int range) {
-	for (int i = levelOfBasePower; i < range + levelOfBasePower; i++) {
-		printf("%d: %d pistons\n", i - levelOfBasePower + 1, pistonCount[i]);
-		accesablePistonAmount[i - levelOfBasePower] = pistonCount[i];
+int priceCalculator(choice, username) {
+	float price = car_price_list[choice - 1]; int amount = 0; int stock_check_amount; int discount_used = 0;
+	if (user_age >= 65) {
+		printf("As you are %d, you qualify for a 25%c reduction of the final price!\n", user_age, PERCENT_SIGN);
+		price *= 0.75; discount_used = 25;//reduce the price by 25% if the user is over 65
 	}
-	scanf_s("%d", &pistonChoice);
-	clear;
-	switch (pistonChoice)
+
+	stock_check_amount = car_stock_list[choice - 1];
+
+	while (amount > stock_check_amount || amount < 1) {
+		clear; printf("Selected: %s - %c%.2f\nHow many would you like to purchase? There are %d in stock currently\n", car_model_list[choice - 1], POUND_SIGN, price, car_stock_list[choice - 1]);
+		int option; accurateInput; option = option - '0'; /*Allows the user to select how many of that type of car they want*/ amount = option;
+	}
+	price *= amount;
+	printf("Continue with purchase? %d %s for a total of %.2f\nA: Yes\nB: No\n\n", amount, car_model_list[choice - 1], price); char option2; while ((getchar()) != '\n'); option2 = getchar();//Makes sure it accurately reads the users input, instead of reading all the characters after it should have stopped
+	switch (option2)
 	{
-	case 1:
-		pistonChoice = accesablePistonAmount[0];
-		printf("You chose %d pistons\n", pistonChoice);
+	case 'a': case 'A':
+		clear; p("Thank you for purchasing from us!\n"); 
+		int chosen_stock = car_stock_list[choice - 1]; chosen_stock -= amount; car_stock_list[choice - 1] = chosen_stock; //Edits the array by creating a temp int variable that is used to replace the value of the stock array
+		saveStockToFile(); //Writes the new array to a file right after it is edited
+		saveInvoice(username, choice - 1, &price, discount_used); //pass price as a pointer so it isn't lost when the function closes
 		break;
-	case 2:
-		pistonChoice = accesablePistonAmount[1];
-		printf("You chose %d pistons\n", pistonChoice);
-		break;
-	case 3:
-		if (range == 3) {
-			pistonChoice = accesablePistonAmount[2];
-			printf("You chose %d pistons\n", pistonChoice);
-			break;
-		}
-		else {
-			system("cls");
-			printf("Invalid selection\n");
-			modelClassPriceCalculator();
-			break;
-		}
+	case 'b': case 'B':
+		clear; buyCarFunction(); break;
 	default:
-		system("cls");
-		printf("Invalid selection\n");
-		modelClassPriceCalculator();
-		break;
+		clear; p("Not a valid input\n"); longLine;
+		priceCalculator(); break;
 	}
-	//for (int x = 0; x < range; x++) {
-	//	printf("VIABLE PISTONS %d\n", accesablePistonAmount[x]);
-	//}
 }
 
-//allows user to choose a piston amount from available options
-int pistonSwitch() {
-	switch (carClass)
+int buyCarFunction(username) {
+	clear; p("Please choose a vehical, or press 0 to go back\n"); longLine; int option; float price;
+	p("1: Lamborghini		2: Ferrari	3: Bugatti\n4: Mercedes		5: BMW		6: Tesla\nG: Range Rover		7: Saab		8: Ford		9:Kia\n\n"); accurateInput; option = option - '0'; //Makes the 'option' value an int, not a char
+	switch (option)
 	{
-	case 'A':
-		pistonChoose(4, 3);
-		break;
-	case 'B':
-		pistonChoose(3, 3);
-		break;
-	case 'C':
-		pistonChoose(2, 2);
-		break;
-	case 'D':
-		pistonChoose(1, 2);
-		break;
-	default:
-		printf("Error choosing pistons!\n");
-		break;
-	}
-}
-
-//Calculates the price of the car based off of specs
-int priceFunction() {
-	finalPrice *= priceMultiplier; //multiply the final price by the multiplier
-
-	//outputs & menus for the user to select from
-	if (CAR_MODEL_LIST[modelSelector - 1] != "Tesla") { //if the car is NOT a Tesla
-		printf("Please choose an amount of pistons in your engine: \n");
-		printf("-------------------------------------------------- \n");
-		pistonSwitch();
-
-		//Adjusts prices based on piston count
-		finalPrice *= pistonChoice;
-		if (pistonChoice > 7) {
-			finalPrice /= 10;
-		}
-		else if (pistonChoice < 7 && pistonChoice > 0) {
-			finalPrice /= 4;
-		}
-	}
-
-	else if (CAR_MODEL_LIST[modelSelector - 1] == "Tesla") { //If the car IS a Telsa
-		pistonCount == 0;
-		engineLiters == 0;
-		system("cls");
-		printf("What top speed do you require? (Maximum of 200 mph, Minimum of 100): \n");
-		printf("---------------------------------------------------- \n");
-		scanf_s("%d", &topSpeed);
-
-		if (topSpeed > 200) { //lets them re-enter if there top speed is over 200 
-			topSpeed = 0;
-			priceFunction();
-		}
-		else if (topSpeed < 100) { //lets them re-enter if there top speed is below 100
-			topSpeed = 0;
-			priceFunction();
-		}
-		finalPrice *= topSpeed;
-		finalPrice /= 100;
-	}
-	//printf("xxxx: \n");
-	//printf("---------------------------------------------------- \n");
-	//printf("1.Finance \n");
-	//printf("2.Rent \n");
-	//printf("3.buy \n");
-	//scanf_s("%d", &methodOfPurchase);
-	paymentTypeFunction();
-}
-
-int rentMethodFunc() {
-	methodOfPurchase = 'R';
-	system("cls");
-	printf("How many months would you like to rent your car for?: \n");
-	printf("---------------------------------------------- \n");
-	scanf_s("%d", &monthsToRent);
-	system("cls");//clears console output
-	monthlyPrice = finalPrice / 12;
-	int finalPriceIncaseOverMonthLimit = finalPrice;
-	finalPrice = monthlyPrice * monthsToRent * pow(RENT_INTEREST, monthsToRent); //works out the final price (including price reduction)
-	switch (monthsToRent)
-	{
+	case 1:	case 2:	case 3:	case 4:	case 5:	case 6:	case 7:	case 8:	case 9:
+		clear; priceCalculator(option, username); break;
 	case 0:
-		system("cls");//clears console output
-		paymentTypeFunction(); //lets the user re-enter there data
-		break;
-	case 1:
-		printf("You will be renting the car for one month, costing %.2f pounds. \n\n", monthlyPrice); //prints a grammatically correct statment (as it's only one month), displaying costs to the user
-		break;
+		clear; menuChoice(); break;
 	default:
-		if (monthsToRent <= 72) {
-			printf("You will be renting the car for %d months costing %.2f pounds for the first month. After this initial month, a reduction of 2 percent will be applied each month. This will amount to a total of %.2f pounds\n\n", monthsToRent, monthlyPrice, finalPrice); //prints a grammatically correct statment (as it's multiple months), displaying costs to the user
-			break;
-		}
-
-		//This statment re-calculates the price using 72 weeks as a maximum
-		else {
-			printf("The longest amount of time you can rent a car for is 72 months\n");
-			monthsToRent = 72;
-			monthlyPrice = finalPriceIncaseOverMonthLimit / 12;
-			finalPriceIncaseOverMonthLimit = monthlyPrice * monthsToRent * pow(RENT_INTEREST, monthsToRent);
-			printf("You will be renting the car for %d months costing %.2f pounds for the first month. After this initial month, a reduction of 2 percent will be applied each month. This will amount to a total of %.2f pounds\n\n", monthsToRent, monthlyPrice, finalPrice); //prints a grammatically correct statment (as it's multiple months), displaying costs to the user
-			break;
-		}
+		buyCarFunction(); break;
 	}
 }
 
-int financeMethodFunc() {
-	methodOfPurchase = 'F';
-	clear;
-	printf("How many years do you want to finance your car for?: \n");
-	printf("---------------------------------------------- \n");
-	scanf_s("%d", &yearsToFinance);
-	clear;
-
-	switch (yearsToFinance)
-	{
-	case 0:
-		system("cls");//clears console output
-		paymentTypeFunction(); //lets the user re-enter there data
-		break;
-
-	default:
-		yearlyCost = finalPrice / yearsToFinance;
-		finalPrice = yearlyCost * yearsToFinance * pow(FINANCE_YEARLY_INTEREST, yearsToFinance);
-		printf("You will be financing the car for %d years costing %.2f pounds for the first year. After this initial year, an increase of 4 percent will be applied each month. This will amount to a total of %.2f pounds\n\n", yearsToFinance, yearlyCost, finalPrice);
-	}
+int viewSaleFunction() {
+	clear; p("You are viewing previous sales...\n");
 }
 
-int paymentTypeFunction() {
-	//outputs & menus for the user to select from
-	printf("Would you like to finance, rent or buy your car?: \n");
-	printf("------------------------------------------------- \n");
-	printf("1.Finance \n");
-	printf("2.Rent \n");
-	printf("3.buy \n");
-	scanf_s("%d", &methodOfPurchase);
-
-	//sets the mode of payment based of what the user selects
-	switch (methodOfPurchase)
-	{
-	case 1: //for financing cars
-		financeMethodFunc();
-		break;
-
-	case 2: //for renting cars
-		rentMethodFunc();
-		break;
-
-	case 3: //For outright buying cars
-		methodOfPurchase = 'B';
-		clear;
-		switch (carAmountRequired) //checks how many cars the user is trying to buy, and displays an appropriate message.
-		{
-		case 1:
-			printf("You are about to purchase one %s \n", CAR_MODEL_LIST[carNameElementNumber]);
-			printf("The final price is: %.2f\n ", finalPrice);
-			confirmPurchase();
-			break;
-
-		default:
-			printf("You are about to purchase %d %s's \neach %s costs %.2f\n\n", carAmountRequired, CAR_MODEL_LIST[carNameElementNumber], CAR_MODEL_LIST[carNameElementNumber], finalPrice / carAmountRequired);
-			printf("The final price is: %.2f\n", finalPrice);
-			confirmPurchase();
-			break;
-		}
-		break;
-
-	default:
-		printf("Error with method of purchase selection"); //shows an error if the user selects somthing other than the acceptable values
-		break;
+int carModelListRead() {
+	char tempString[4] = ""; int tempInt = 0; //Initialise some temporary variables that will only be used in this function
+	FILE* f = fopen("carStockList.txt", "r"); ifNullFile(f); //Opens the list of car models, then checks if it has opened properly
+	for (int i = 0; i < 10; i++) {
+		fgets(tempString, 3, f); tempString[strcspn(tempString, "\n")] = 0; //Gets the stock as a string, removes newline character
+		tempInt = atoi(tempString); //Typecasts the string from the file, turning it into a intiger
+		car_stock_list[i] = tempInt;
 	}
-	//peforms equations to determin the overall price of the vechical
+	fclose(f); //Close the file
 }
 
-int confirmPurchase() {
-	printf("Do you want to continue?\n1: Yes\n2: No\n");
-	scanf_s("%d", &continueYesOrNo);
-	clear;
-	switch (continueYesOrNo)
-	{
-	case 1:
-		clear;
-		p("Thank you for purchasing!\n\n");
-		userCarBoughtAmountBought[currentUserAccountNumber][carNameElementNumber][0] = carAmountRequired;
-
-		printf("Here is your invoice\n");
-		longLine;
-		printf("User: %s\nCar model: %s\nAmount: %d\nPiston amount: %d\n\n", currentUsername, CAR_MODEL_LIST[carNameElementNumber], carAmountRequired, pistonChoice);
-		saveInvoiceToFile(currentUsername);
-		loginMenu();
-		break;
-
-	case 2:
-		printf("Returning to the start...\n");
-		modelClassPriceCalculator();
-		break;
-
-	default:
-		clear;
-		confirmPurchase;
-		break;
+int ifNullFile(f){
+	if (f == NULL){  // Checks if the file can be opened or not (If it was succesfully created)
+		printf("Unable to access file.\n"); return 1;//Prints an error message to console
 	}
-}
-
-int multiCarChooser() {
-	printf("There are %d %s's in stock. How many do you require? \n", stockValue, CAR_MODEL_LIST[carNameElementNumber]);
-	scanf_s("%d", &carAmountRequired);
-
-	if (carAmountRequired > stockValue) {
-		clear;
-		printf("There are not enough cars in stock. Please choose %d or less\n", stockValue);
-		multiCarChooser();
-	}
-	else if (carAmountRequired < 1) {
-		clear;
-		modelClassPriceCalculator();
-	}
-	else {
-		priceMultiplier *= carAmountRequired;
-		stock_array[carNameElementNumber] -= carAmountRequired;
-		clear;
-	}
-}
-
-//main menu function
-int mainMenu() {
-	p("A: View available cars prices and availability\n");
-	p("B: Purchase cars\n");
-	p("C: View previous sales\n");
-
-	char userMenuChoice;
-	userMenuChoice = getchar();
-	printf("%c\n", userMenuChoice);
-
-	switch (userMenuChoice)
-	{
-	case 'a':
-	case 'A':
-		clear;
-		viewStats();
-		break;
-
-	case 'b':
-	case 'B':
-		clear;
-		modelClassPriceCalculator();
-		break;
-
-	case 'c':
-	case 'C':
-		clear;
-		p("Press x to leave\n");
-		longLine;
-		nLine;
-		readInvoice(currentUsername);
-		char x[1] = "";
-		scanf_s("%s", x, 1);
-		if (x == 'x' || x == 'X') {
-			mainMenu();
-		}
-		break;
-
-	default:
-		clear;
-		p("Menu\n");
-		longLine;
-		mainMenu();
-		break;
-	}
-}
-
-int loginMenu() {
-	int loginChoice = 0;
-	p("Hello, welcome to the online car dealership!\n");
-	longLine;
-	p("1: Login\n2: Sign up\n3: Admin\n");
-	intInput("%d", loginChoice);
-
-	switch (loginChoice)
-	{
-	case 1:
-		clear;
-		p("Login section\n");
-		longLine;
-		loginFunc();
-		mainMenu();
-		break;
-
-	case 2:
-		clear;
-		p("Sign up section\n");
-		longLine;
-		signupFunc();
-		loginFunc();
-		break;
-
-	case 3:
-		clear;
-		p("Admin login section\n");
-		longLine;
-		adminLogin();
-		break;
-
-	default:
-		clear;
-		p("Please try again\n");
-		loginMenu();
-		break;
-	}
-}
-
-int adminLogin() {
-	p("Enter Admin username: ");
-	scanf_s("%s", enteredUsername, 11);
-
-	p("Enter Admin password: ");
-	scanf_s("%s", enteredPassword, 12);
-
-	if (strcmp(enteredUsername, adminUser) == 0 && strcmp(enteredPassword, adminPass) == 0) {
-		p("You have logged in as an admin");
-	}
-	else {
-		clear;
-		p("Please try again...\n");
-		adminLogin();
-	}
-}
-
-int loginFunc() {
-
-	accountCountReader();
-	p("What is your username? (Not case sensetive): ");
-	scanf_s("%s", enteredUsername, 90);
-
-	nLine;
-	p("What is your password? (Case sensetive): ");
-	scanf_s("%s", enteredPassword, 90);
-
-	for (int i = 0; i <= accountCount; i++) {
-		
-		readCustomerDetails(i+1);
-
-		if (strcmp(lowerCaseFunc(enteredUsername), lowerCaseFunc(usernameFromFile)) == 0 && strcmp(enteredPassword, passwordFromFile) == 0) { //compares the users inputs (for username and pasword) to acceptible pairs
-			clear;
-			currentUserAccountNumber = i+1;
-			strcpy(currentUsername, lowerCaseFunc(enteredUsername));
-			printf("Logging you in now...\n\n");
-			previousLogin = 1;
-			mainMenu();
-		}
-	}
-
-	//run the three lines of code below if the password isn't found within the list of accaptable values. It will only run if the above "if" statment isn't ran.
-	clear;
-	p("incorrect username or password, please try again\n\n");
-	loginFunc();
-}
-
-int signupFunc() {
-	accountCountReader();
-
-	p("Please enter a username (Not case sensetive): ");
-	scanf_s("%s", enteredUsername, 9);
-	nLine;
-	p("Please enter a password (Case sensetive): ");
-	scanf_s("%s", enteredPassword, 9);
-	nLine;
-	p("Please enter your age: ");
-	scanf_s("%s", enteredAge, 3);
-
-	makeCustomerDetails(accountCount+1, enteredUsername, enteredPassword, enteredAge);
-	clear;
-	sprintf(accountCountString, "%d", accountCount + 1); //converts a number into a string to pass into the file-loading function
-	accountCount++;
-
-	accountCountWriter(accountCountString);
 }
 
 int lowerCaseFunc(upperString) {
-	char* str = upperString;
-	size_t len = strlen(str);
+	char* str = upperString; size_t len = strlen(str);
 	char* lower = calloc(len + 1, sizeof(char)); //creates room in memory for the lower case version of the text
-
 	for (size_t i = 0; i < len; ++i) { //for each character in the string
-		lower[i] = tolower((unsigned char)str[i]); //append a lowercase version of the character to a list, over time recreating a lowercase string
+		lower[i] = tolower((unsigned char)str[i]); //append a lowercase version of the character to a list, overtime recreating a lowercase string
 	}
-	return lower;
-	free(lower); //frees the memory as we no longer need it to store the lower case version of the text
+	return lower; free(lower); //Returns the string (lower case), then frees the memory as we no longer need it to store the lower case version of the text
 }
 
-int fileLoaderUsername(username, userNumber) { //userNumber e.g. "user1.txt"
-	//https://www.programiz.com/c-programming/c-file-input-output
-	char userFileName[32] = "username";
-	char textExtension[7] = ".text";
-	FILE* f; //Declear pointer with a type of "file"
-
-	strcat(userFileName, userNumber);
-	strcat(userFileName, textExtension);
-
-	f = fopen(userFileName, "a+"); //opens a read/write version of the file.
-
-	ifNullFile(f); //checks if the file is accessible
-
-	fprintf(f, "%s", username, 36); //appends a newline to the file
-	fprintf(f, "%s", "\n", 36); //appends a newline to the file
-
-	fclose(f); //closes the file
+int fileExistsCheck(const char* filename) {
+	struct stat buffer; //A system structure that stores infomation about files. Holds info like file permissions/ recent access dates etc
+	int exist = stat(filename, &buffer);
+	if (exist == 0) //If exist is 0, the file exists. If it is -1, it does not exist
+		return 1; //Return a value of 1 if the file exists
+	else
+		return 0; //Return 0 if the file does not exist
 }
 
-int fileLoaderPassword(password, passNumber) { //passNumber e.g. "pass1.txt"
-	//https://www.programiz.com/c-programming/c-file-input-output
-	//https://www.programiz.com/c-programming/c-file-input-output
-	char passFileName[32] = "password";
-	char textExtension[7] = ".text";
-	FILE* f; //Declear pointer with a type of "file"
+int signUpFunction() {
+	char entered_username[33] = ""; char entered_password[33] = ""; int entered_age = 0; char file_name[37] = ""; //Creates variables that holds the username, password, and age that the person wants to enter. Creats a string that will act as a filename.
 
-	strcat(passFileName, passNumber);
-	strcat(passFileName, textExtension);
+	p("Please enter a username that is 4 to 32 characters long (Not case sensetive)\nEnter Here: "); scanf("%s", entered_username, 32);
+	int username_length = strlen(entered_username);
+	if (username_length > 32 || username_length < 4) {
+		clear; p("Please enter a username between 4 and 32 characters\n"); longLine;
+		signUpFunction();
+	} nLine;
 
-	f = fopen(passFileName, "a+"); //opens a read/write version of the file.
+	strcpy(entered_username, lowerCaseFunc(entered_username)); //Makes the entered username lowercase
+	strcat(file_name, entered_username); strcat(file_name, ".txt"); //Creates the file name by adding ".txt" to the end of the username given
 
-	ifNullFile(f); //checks if the file is accessible
+	if (fileExistsCheck(file_name)) { //if the file exists (returns 1 from the 'fileExistsCheck' function)
+		clear; p("That username already exists\n"); longLine;
+		signUpFunction();
+	}
 
-	fprintf(f, "%s", password, 36); //appends a newline to the file
-	fprintf(f, "%s", "\n", 36); //appends a newline to the file
+	p("Please enter a password that is 8 to 32 characters long (Case sensetive)\nEnter Here: "); scanf("%s", entered_password, 32);
+	int password_length = strlen(entered_password);
+	if (password_length > 32 || password_length < 8) {
+		clear; p("Please enter a password between 8 and 32 characters\n"); longLine;
+		signUpFunction();
+	} nLine;
 
-	fclose(f); //closes the file
+	p("Please enter your age: "); scanf("%d", &entered_age);
+	char entered_age_string[4]; sprintf(entered_age_string, "%d", entered_age); //creates a second variable that holds the age as a string. This allows it to be written to the file. We then typecast the int to a string version.
+	if (entered_age > 130 || entered_age < 17) {
+		clear; p("Please enter an age between 17 and 130\n"); longLine;
+		signUpFunction();
+	} nLine;
+
+	FILE* f = fopen(file_name, "w+"); //Create file variable and create the file with the ability to write
+	ifNullFile(f);
+	fprintf(f, "%s\n%s\n%s\n", entered_password, entered_age_string, entered_username); //Write the users infomation
+	fclose(f); //Close the file
+	clear; loginFunction(); //Allows the user to login
+
 }
 
-int ifNullFile(fileName) {
-	if (fileName == NULL) //if there is an error with the pointer, it will cancel the program and give an exit command
+int loginFunction() {
+	p("Please login below\n"); longLine;
+	char entered_username[33] = ""; char entered_password[33] = ""; char file_name[37] = ""; char password_from_file[33] = ""; char age_from_file[4] = "";
+	p("Please enter your username: "); scanf("%s", entered_username, 32);
+	int username_length = strlen(entered_username);
+	if (username_length > 32) {
+		clear; p("Please enter a smaller username\n"); longLine;
+		loginFunction();
+	} nLine;
+
+	strcpy(entered_username, lowerCaseFunc(entered_username)); //Makes the entered username lowercase
+	strcat(file_name, entered_username); strcat(file_name, ".txt"); //Creates the file name by adding ".txt" to the end of the username given
+
+	if (fileExistsCheck(file_name)) { //if the file exists (They have an account)
+
+		FILE* f = fopen(file_name, "r"); fgets(password_from_file, 32, f); //Open the file that is named after there username, get the password from the first line
+		
+		p("Please enter your password: "); scanf("%s", entered_password, 32);
+		int password_length = strlen(entered_password);
+		if (password_length > 32) { //If the password is too long
+			clear; p("Please enter a smaller password\n"); longLine;
+			loginFunction();
+		} nLine;
+
+		password_from_file[strcspn(password_from_file, "\n")] = 0; //Removes the endline character from the password saved in the file, allowing us to compare them
+
+		if (strcmp(entered_password, password_from_file) == 0) { //If the entered password and the password saved for that username are the same, then proceed
+			clear; //User has succsefully logged in if this code is ran
+			fgets(age_from_file, 4, f); age_from_file[strcspn(age_from_file, "\n")] = 0; //Removes the endline character from the age string
+			user_age = atoi(age_from_file);
+			fclose(f); // close the file
+			menuChoice(entered_username);//pass the username into the next function
+		}
+
+		else {
+			clear; p("Wrong password, please try again\n"); fclose(f); loginFunction();
+		}
+	}
+	else {
+		clear; p("You don't have an account with that username, please try again\n"); longLine; loginFunction();
+	}
+}
+
+int authenticationPage() {
+	clear; p("Welcome to Lewis's car dealership!\n"); longLine; char option;
+	p("A: Sign up\nB: Login\nX: Exit\n"); option = getchar();
+
+	switch (option)
 	{
-		clear;
-		if (previousLogin == 0) { //work around for unknown bug
-			printf("Incorrect password. Please try again\n\n");
-		}
-		loginMenu();
+	case 'a': case 'A':
+		clear; signUpFunction(); break;
+	case 'b': case 'B':
+		clear; loginFunction();  break;
+	case 'x': case 'X':
+		clear; goodByeMessage(); break;
+	default:
+		clear; p("Not a valid input\n"); longLine;
+		authenticationPage(); break;
 	}
-}
-
-int lineCheck(filename) {
-	int lineCount = 1; //Holds the value of how many lines are counted
-	char character;
-
-	for (character = getc(filename); character != EOF; character = getc(filename))
-		if (character == '\n') //if the character is a new line
-			lineCount++; // Increment the line counter by one for every new line
-
-	fclose(filename); //closes the file
-	return(lineCount);
-}
-
-int readUsernameFromFile(userNumberAsString) {//userNumber e.g. "user1.txt"
-	char str[9];
-	char userFileName[32] = "username";
-	char textExtension[7] = ".text";
-
-	strcat(userFileName, userNumberAsString);
-	strcat(userFileName, textExtension);
-
-	// open the file
-	FILE* f = fopen(userFileName, "r");
-	ifNullFile(f); //checks if the file is accessible
-
-	fgets(str, 9, f); // read a line from the file, save to the var str
-
-	strcpy(usernameFromFile, str);
-	fclose(f); // close the file
-}
-
-int readPasswordFromFile(passNumberAsString) { //passNumber e.g. "pass1.txt"
-	char str[9];
-	char passFileName[32] = "password";
-	char textExtension[7] = ".text";
-
-	strcat(passFileName, passNumberAsString);
-	strcat(passFileName, textExtension);
-
-	// open the file
-	FILE* f = fopen(passFileName, "r");
-	ifNullFile(f); //checks if the file is accessible
-
-	fgets(str, 9, f); // read a line from the file, save to the var str
-
-	strcpy(passwordFromFile, str);
-	fclose(f); // close the file
-
-}
-
-int accountCountReader() {
-	char str[4];
-	// open the file
-	FILE* f = fopen("accountCount.txt", "r");
-
-	ifNullFile(f); //checks if the file is accessible
-
-	fgets(str, 4, f); // read a line from the file, save to the var str
-
-	strcpy(accountCountString, str);
-	accountCount = atoi(accountCountString);
-	fclose(f); // close the file
-}
-
-int accountCountWriter(numberAsString) {
-	FILE* f = fopen("accountCount.txt", "w");	// open the file
-	ifNullFile(f); //checks if the file is accessible
-
-	fprintf(f, "%s\n", numberAsString);
-	fclose(f); // close the file
-}
-
-int saveInvoiceToFile(userName, price) {
-	char userFileName[32] = "invoice-";
-	char textExtension[7] = ".text";
-
-	strcat(userFileName, userName);
-	strcat(userFileName, textExtension);
-
-	FILE* f = fopen(userFileName, "a+"); // open the file
-	ifNullFile(f); //checks if the file is accessible
-
-	fprintf(f, "Invoice\n");
-	fprintf(f, "--------------------------\n");
-	fprintf(f, "User: %s\nCar model: %s\nAmount: %d\nPiston amount: %d\nPrice: %.2f\n\n\n", currentUsername, CAR_MODEL_LIST[carNameElementNumber], carAmountRequired, pistonChoice, finalPrice);
-	fclose(f); // close the file
-}
-
-int readInvoice(userName) {
-	char str[256];
-	char c;
-	char userFileName[32] = "invoice-";
-	char textExtension[7] = ".text";
-
-	strcat(userFileName, userName);
-	strcat(userFileName, textExtension);
-
-	FILE* f = fopen(userFileName, "r"); // open the file
-	ifNullFile(f); //checks if the file is accessible
-
-	while ((c = getc(f)) != EOF)
-		putchar(c);
-
-	fclose(f); // close the file
-}
-
-int makeFile() {
-	int numberOfFiles = 0;
-	for (int i = 0; i < numberOfFiles; i++) {
-		char name[128] = "ENTER A NAME HERE-";
-		strcat(name, CAR_MODEL_LIST[i]);
-		strcat(name, ".txt");
-
-		FILE* f = fopen(name, "w"); // open the file
-		fprintf(f, "1");
-		fclose(f); // close the file
-	}
-}
-
-int makeCustomerDetails(usernumber, username, password, age) {
-	char userFileName[32] = " ";
-	sprintf(userFileName, "%d", usernumber);
-	char textExtension[7] = ".txt";
-
-	strcat(userFileName, textExtension);
-	printf("FILENAME IS: %s\n", userFileName);
-	FILE* f = fopen(userFileName, "w+"); // open the file
-	ifNullFile(f); //checks if the file is accessible
-
-	fprintf(f, "%s\n", username);
-	fprintf(f, "%s\n", password);
-	fprintf(f, "%s\n", age);
-	fclose(f); // close the file
-}
-
-int readCustomerDetails(usernumber) {
-	char c;
-	char userFileName[32] = " ";
-	sprintf(userFileName, "%d", usernumber);
-	char textExtension[7] = ".txt";
-
-	strcat(userFileName, textExtension);
-
-	FILE* f = fopen(userFileName, "r"); // open the file
-	ifNullFile(f); //checks if the file is accessible
-
-	#define PASS_SIZE 9
-	#define USER_SIZE 9
-	#define AGE_SIZE 2 
-
-	char age;
-	char userAgeString[4] = "";
-
-	char usernameStringReadVariable[USER_SIZE] = "";
-	usernameStringReadVariable[USER_SIZE - 1] = '\0';
-
-	while ((c = getc(f)) != '\n') {
-
-		for (int i = 0; i < 7; i++) {
-				usernameStringReadVariable[i] = usernameStringReadVariable[i + 1];
-		}
-		usernameStringReadVariable[USER_SIZE - 2] = c;
-	}
-
-	char passwordStringReadVariable[PASS_SIZE] = "";
-	passwordStringReadVariable[PASS_SIZE - 1] = '\0';
-	while ((c = getc(f)) != '\n') {
-
-		for (int i = 0; i < 7; i++) {
-			passwordStringReadVariable[i] = passwordStringReadVariable[i + 1];
-		}
-		passwordStringReadVariable[PASS_SIZE-2] = c;
-	}
-
-	while ((age = getc(f)) != '\n') {
-
-		//The for loop below goes through every character in the userAgeString variable, replacing them with the character before it. The first character is replaced with the character from the file that makes up the age (this character acts as the character before it)
-		for (int i = 0; i < AGE_SIZE-1; i++) {
-			userAgeString[i] = userAgeString[i + 1];
-		}
-		userAgeString[AGE_SIZE-1] = age;
-		}
-
-	nLine;
-	strcpy(usernameFromFile, usernameStringReadVariable);
-	strcpy(passwordFromFile, passwordStringReadVariable);
-
-
-	//printf("Username is: %s\n", usernameFromFile);
-	//printf("Password is: %s\n", passwordFromFile);
-
-	int userAgeNumb = atoi(userAgeString);
-	//printf("Age as as a string: %s\n", userAgeString);
-	//printf("Age as as a number: %d\n", userAgeNumb);
-	fclose(f); // close the file
 }
 
 void main() {
-	//readInvoice("lewis123");
-	//makeCustomerDetails("lewis123", "password", "42");
-	//makeCustomerDetails(1, "lewis123", "password", "42");
-	//readCustomerDetails(1);
-	loginMenu();
-	nLine; //Creates a gap between my text and the generic console output when the program exits
+	carModelListRead();
+	authenticationPage();
+	goodByeMessage();
+	nLine; nLine;
 }
-
-
-
-
