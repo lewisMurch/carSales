@@ -17,13 +17,17 @@
 #define POUND_SIGN          156 //ASCII for the pound sign
 #define PERCENT_SIGN        37 //ASCII for the pound sign
 #define accurateInput 	    while ((getchar()) != '\n'); option = getchar();//Makes sure it accurately reads the users input, instead of reading all the characters after it should have stopped
-
+#define pressAnyKeyToClose  while ((getchar()) != '\n'); if (getchar()); menuChoice();
 
 //Global Variables 
-int user_age;
-const char* car_model_list[10] = {"Lamborghini","Ferrari","Bugatti", "Mercedes", "BMW", "Tesla", "Range Rover", "Saab", "Ford", "Kia"};
-float car_price_list[10] = {360000.00, 290000.00, 3800000.00, 65750.00, 40000.00, 40000.00, 80000.00, 25000.00, 12000.00, 9000.00};
-const int* car_stock_list[10] = {0};
+int user_age; char username_global[33] = ""; char password_global[33] = "";
+const char* car_model_list[9] = {"Lamborghini","Ferrari","Bugatti", "Mercedes", "BMW", "Tesla", "Range Rover", "Saab", "Ford"};
+float car_price_list[9] = {360000.00, 290000.00, 3800000.00, 65750.00, 40000.00, 40000.00, 80000.00, 25000.00, 12000.00};
+const int* car_stock_list[9] = { 0 };
+float sales_figure_total[9] = { 0 };
+
+int car_model_list_highest_first[9]= { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+float sales_figure_total_highest_first[9] = { 0 };
 
 void goodByeMessage() {
 	clear; p("Thank you for your visit, enjoy the rest of your day\n\n");
@@ -32,57 +36,124 @@ void goodByeMessage() {
 int saveStockToFile() {
 	char str[2];
 	FILE* f = fopen("carStockList.txt", "w+"); ifNullFile(f); //Opens the list of car models, then checks if it has opened properly
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 9; i++) {
 		sprintf(str, "%d", car_stock_list[i]);
 		fprintf(f, str); fprintf(f, "\n"); //writes each element one by one to the file
 	}
 	fclose(f); //Close the file
 }
 
-int saveInvoice(username, car_element, price) {
-	char age_string[128]; char discount_string[128] = "0"; char car_element_string[128]; float* price_pointer = price; //set a pointer to hold the data passed into it by the price calculator function
-	char file_name[45] = "invoice-"; strcat(file_name, username); strcat(file_name, ".txt"); //Creates the file name by adding ".txt" to the end of the username given
+int saveInvoice(car_element, price, amount) {
+	char age_string[128]; char discount_string[128] = "0"; 	char amount_string[128]; char car_element_string[128]; float* price_pointer = price; /*set a pointer to hold the data passed into it by the price calculator function*/
+
+	char file_name[45] = "invoice-"; strcat(file_name, username_global); strcat(file_name, ".txt"); //Creates the file name by adding ".txt" to the end of the username given
 	FILE* f = fopen(file_name, "a"); ifNullFile(f);
 
 	if (user_age >= 65) {
 		strcpy(discount_string, "25"); //sets the percentage removed as a string if the user is 65 or over so we can write it to the file
 	}
-	sprintf(age_string, "%d", user_age); sprintf(car_element_string, "%d",car_element);
-	fprintf(f, "%s\n%s\n%.2f\nEND\n", car_element_string, discount_string, *price_pointer);
+	sprintf(age_string, "%d", user_age); sprintf(car_element_string, "%d", car_element); sprintf(amount_string, "%d", amount);
+	fprintf(f, "%s\n%s\n%.2f\n%s\n", car_element_string, discount_string, *price_pointer, amount_string);
+	fclose(f);
+
+	char temp_string[64];
+	FILE* f2 = fopen("salesFigure.txt", "w+"); ifNullFile(f2);
+	for (int i = 0; i < 9; i++) {
+		fprintf(f2, "%.2f\n", sales_figure_total[i]);
+	} 
+	fclose(f2);
+}
+
+int loadSalesFigure() {
+	char temp_string[24] = ""; float temp_float;
+	FILE* f = fopen("salesFigure.txt", "r"); ifNullFile(f);
+	for (int i = 0; i < 9; i++) {
+		fgets(temp_string, 12, f); temp_string[strcspn(temp_string, "\n")] = 0; //Gets the price as a string, removes newline character
+		temp_float = atof(temp_string); //Typecasts the string from the file, turning it into a float
+		sales_figure_total[i] = temp_float;
+	}
 	fclose(f);
 }
 
-int saveSalesFigure(price) {
-	float car_price_list[10] = { 0 }; char tempString[64]; float tempFloat;
-	FILE* f = open("salesFigure.txt", "r"); ifNullFile(f);
-	for (int i = 0; i < 10; i++) {
-		fgets(tempString, 4, f);
+viewAdminSales() {
+	loadSalesFigure(); //make sure the list is up to date
+	char temp_string[24] = ""; float temp_float;
+	FILE* f = fopen("salesFigure.txt", "r"); ifNullFile(f);
+	for (int i = 0; i < 9; i++) {
+		fgets(temp_string, 12, f); temp_string[strcspn(temp_string, "\n")] = 0; //Gets the price as a string, removes newline character
+		temp_float = atof(temp_string); //Typecasts the string from the file, turning it into a float
+		sales_figure_total_highest_first[i] = temp_float;
 	}
 
+	int check_var = 0;
+	while (check_var < 9) { //While NOT all 9 items are in order, do the following:
+		for (int i = 0; i < 9; i++) { //for the entire list
+			if (sales_figure_total_highest_first[i] < sales_figure_total_highest_first[i + 1]) { //if the element infront is smaller
+
+				float temp_float = sales_figure_total_highest_first[i]; //save its value to a temporary value
+				sales_figure_total_highest_first[i] = sales_figure_total_highest_first[i + 1]; //set the prior elements value to the latter elements value
+				sales_figure_total_highest_first[i + 1] = temp_float; //Set the latter elements value to the temp variable (previously the prior value)
+
+				//The below three lines of code are for keeping track of the car names, same as above with prices, so we can print which car has which price later on
+				int temp_int = car_model_list_highest_first[i];
+				car_model_list_highest_first[i] = car_model_list_highest_first[i + 1];
+				car_model_list_highest_first[i + 1] = temp_int;
+
+				check_var = 0; //Set the "item in a row" count to 0, as we just broke the chain
+			}
+			else {
+				check_var++; //add 1 to the "another item in a row" value tracker
+			}
+		}
+	}
+
+	p("Lifetime car sales\n"); longLine;
+	for (int i = 0; i < 9; i++) { //For each car model in the list
+		if (sales_figure_total_highest_first[i] > 1) { //Only prints cars that have sold, meaning there is less clutter 
+			printf("%c%.2f - %s\n", POUND_SIGN, sales_figure_total_highest_first[i], car_model_list[car_model_list_highest_first[i]]);
+		}
+	}
+	fclose(f); pressAnyKeyToClose;
 }
 
 int menuChoice(username) {
-	clear; p("Lewis's car dealership!\n"); longLine; char option;
-	p("A: View available cars\nB: Purchase a car\nC: View Sales\nX: Back\n"); accurateInput;
-	switch (option)
-	{
-	case 'a': case 'A':
-		clear; viewCarFunction(); break;
-	case 'b': case 'B':
-		clear; buyCarFunction(username);  break;
-	case 'c': case 'C':
-		clear; viewSaleFunction();  break;
-	case 'x': case 'X':
-		clear; authenticationPage(); break;
-	default:
-		clear; p("Not a valid input\n"); longLine;
-		authenticationPage(); break;
+	char option;
+	if (strcmp(username_global, "admin") == 1) { //If they are NOT logged in as an admin
+		clear; p("Lewis's car dealership!\n"); longLine;
+		p("A: View available cars\nB: Purchase a car\nC: View Sales\nX: Back\n"); accurateInput;
+		switch (option)
+		{
+		case 'a': case 'A':
+			clear; viewCarFunction(); break;
+		case 'b': case 'B':
+			clear; buyCarFunction(); break;
+		case 'c': case 'C':
+			clear; viewSaleFunction(); break;
+		case 'x': case 'X':
+			clear; authenticationPage(); break;
+		default:
+			clear; p("Not a valid input\n"); longLine;
+			authenticationPage(); break;
+		}
+	}
+	else {
+		clear; p("A: View sales figures for all cars\nX: Back\n"); accurateInput;
+		switch (option)
+		{
+		case 'a': case 'A':
+			clear; viewAdminSales(); break;
+		case 'x': case 'X':
+			clear; authenticationPage(); break;
+		default:
+			clear; p("Not a valid input\n"); longLine;
+			authenticationPage(); break;
+		}
 	}
 }
 
 int viewCarFunction() {
 	clear;
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 9; i++) {
 		printf("%s\n-----------\n%d in stock - %c%.2f each\n\n", car_model_list[i], car_stock_list[i], POUND_SIGN, car_price_list[i]);
 	}
 	
@@ -93,7 +164,7 @@ int viewCarFunction() {
 	}
 }
 
-int priceCalculator(choice, username) {
+int priceCalculator(choice) {
 	float price = car_price_list[choice - 1]; int amount = 0; int stock_check_amount; int discount_used = 0;
 	if (user_age >= 65) {
 		printf("As you are %d, you qualify for a 25%c reduction of the final price!\n", user_age, PERCENT_SIGN);
@@ -112,9 +183,11 @@ int priceCalculator(choice, username) {
 	{
 	case 'a': case 'A':
 		clear; p("Thank you for purchasing from us!\n"); 
-		int chosen_stock = car_stock_list[choice - 1]; chosen_stock -= amount; car_stock_list[choice - 1] = chosen_stock; //Edits the array by creating a temp int variable that is used to replace the value of the stock array
+		int chosen_stock = car_stock_list[choice - 1]; chosen_stock -= amount; car_stock_list[choice - 1] = chosen_stock;//Edits the array by creating a temp int variable that is used to replace the value of the stock array
+		float chosen_price = sales_figure_total[choice - 1]; chosen_price += price; sales_figure_total[choice - 1] = chosen_price; //Updates the total revenue per car model
 		saveStockToFile(); //Writes the new array to a file right after it is edited
-		saveInvoice(username, choice - 1, &price, discount_used); //pass price as a pointer so it isn't lost when the function closes
+
+		saveInvoice(choice - 1, &price, amount); //pass price as a pointer so it isn't lost when the function closes
 		break;
 	case 'b': case 'B':
 		clear; buyCarFunction(); break;
@@ -124,13 +197,13 @@ int priceCalculator(choice, username) {
 	}
 }
 
-int buyCarFunction(username) {
+int buyCarFunction() {
 	clear; p("Please choose a vehical, or press 0 to go back\n"); longLine; int option; float price;
-	p("1: Lamborghini		2: Ferrari	3: Bugatti\n4: Mercedes		5: BMW		6: Tesla\nG: Range Rover		7: Saab		8: Ford		9:Kia\n\n"); accurateInput; option = option - '0'; //Makes the 'option' value an int, not a char
+	p("1: Lamborghini		2: Ferrari	3: Bugatti\n4: Mercedes		5: BMW		6: Tesla\n7: Range Rover		8: Saab		9: Ford\n\n"); accurateInput; option = option - '0'; //Makes the 'option' value an int, not a char
 	switch (option)
 	{
 	case 1:	case 2:	case 3:	case 4:	case 5:	case 6:	case 7:	case 8:	case 9:
-		clear; priceCalculator(option, username); break;
+		clear; priceCalculator(option); break;
 	case 0:
 		clear; menuChoice(); break;
 	default:
@@ -139,23 +212,35 @@ int buyCarFunction(username) {
 }
 
 int viewSaleFunction() {
-	clear; p("You are viewing previous sales...\n");
+	clear; p("Previous sales on this account:\n"); p("===============================\n"); char file_name[64] = ""; char temp_car_element[4]; char temp_discount[4]; char temp_price[24]; char temp_amount[3];
+	strcat(file_name, "invoice-"); strcat(file_name, username_global); strcat(file_name, ".txt");
+	FILE* f = fopen(file_name, "r"); ifNullFile();
+	int line_count = 8; line_count /= 4; //divied by 3 as we need to run the code below every three lines
+	for (int i = 0; i < line_count; i++) {
+		fgets(temp_car_element, 4, f); temp_car_element[strcspn(temp_car_element, "\n")] = 0;
+		fgets(temp_discount, 4, f); temp_discount[strcspn(temp_discount, "\n")] = 0;
+		fgets(temp_price, 24, f); temp_price[strcspn(temp_price, "\n")] = 0;
+		fgets(temp_amount, 3, f); temp_amount[strcspn(temp_amount, "\n")] = 0;
+		printf("You bought %s %s with a discount of %s%c for a total of - %c%s\n", temp_amount, car_model_list[atoi(temp_car_element)], temp_discount, PERCENT_SIGN, POUND_SIGN, temp_price);
+	}
+	p("\n\nPress any key to go back: ");
+	pressAnyKeyToClose;
 }
 
 int carModelListRead() {
-	char tempString[4] = ""; int tempInt = 0; //Initialise some temporary variables that will only be used in this function
+	char temp_string[4] = ""; int temp_int = 0; //Initialise some temporary variables that will only be used in this function
 	FILE* f = fopen("carStockList.txt", "r"); ifNullFile(f); //Opens the list of car models, then checks if it has opened properly
-	for (int i = 0; i < 10; i++) {
-		fgets(tempString, 3, f); tempString[strcspn(tempString, "\n")] = 0; //Gets the stock as a string, removes newline character
-		tempInt = atoi(tempString); //Typecasts the string from the file, turning it into a intiger
-		car_stock_list[i] = tempInt;
+	for (int i = 0; i < 9; i++) {
+		fgets(temp_string, 3, f);  //Gets the stock as a string, removes newline character
+		temp_int = atoi(temp_string); //Typecasts the string from the file, turning it into a intiger
+		car_stock_list[i] = temp_int;
 	}
-	fclose(f); //Close the file
+	fclose(f);//Close the file
 }
 
 int ifNullFile(f){
 	if (f == NULL){  // Checks if the file can be opened or not (If it was succesfully created)
-		printf("Unable to access file.\n"); return 1;//Prints an error message to console
+		perror("Unable to access file.\n"); return 1;//Prints an error message to console
 	}
 }
 
@@ -245,6 +330,7 @@ int loginFunction() {
 
 		if (strcmp(entered_password, password_from_file) == 0) { //If the entered password and the password saved for that username are the same, then proceed
 			clear; //User has succsefully logged in if this code is ran
+			strcpy(username_global, entered_username); strcpy(password_global, entered_password);
 			fgets(age_from_file, 4, f); age_from_file[strcspn(age_from_file, "\n")] = 0; //Removes the endline character from the age string
 			user_age = atoi(age_from_file);
 			fclose(f); // close the file
@@ -279,7 +365,7 @@ int authenticationPage() {
 }
 
 void main() {
-	carModelListRead();
+	carModelListRead(); loadSalesFigure(); //Functions used for pre-loading
 	authenticationPage();
 	goodByeMessage();
 	nLine; nLine;
